@@ -4,8 +4,7 @@
   "description": "RPG Game",
   "scripts": {
     "build:dev": "env NODE_ENV=development webpack",
-    "build": "env NODE_ENV=production webpack --config webpack.config.js",
-    "start": "npx webpack server",
+    "build": "env NODE_ENV=production webpack",
     "lint": "npx eslint src/**/*.js",
     "prettier": " npx prettier --write .",
     "dev": "npx webpack server",
@@ -22,7 +21,6 @@
   },
   "homepage": "https://github.com/Severenit/rpg-game#readme",
   "devDependencies": {
-    "@babel/core": "^7.14.6",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.2.6",
     "eslint": "^7.29.0",
