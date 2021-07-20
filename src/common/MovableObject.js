@@ -18,7 +18,7 @@ class MovableObject extends PositionedObject {
         motionStartTime: 0,
         motionProgress: 1,
 
-        clampToMap: true, //  по умолчанию объект не должен вылетать за пределы карты
+        clampToMap: true,
       },
       cfg,
     );
