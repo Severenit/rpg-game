@@ -34,6 +34,8 @@ class MovableObject extends PositionedObject {
       const newX = me.toX + dx.offset - me.deltaX;
       const newY = me.toY + dy.offset - me.deltaY;
 
+      me.motionProgress = dx.progress;
+
       if (newX === me.toX && newY === me.toY) {
         me.speed = 0;
         me.motionStartTime = 0;
