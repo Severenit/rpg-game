@@ -6,6 +6,9 @@ class ClientEngine {
   constructor(canvas, game) {
     Object.assign(this, {
       canvas,
+      canvases: {
+        main: canvas,
+      },
       ctx: null,
       imageLoaders: [],
       sprites: {},
@@ -80,6 +83,52 @@ class ClientEngine {
     const camera = this.camera;
 
     this.ctx.drawImage(img, fx, fy, fw, fh, x - camera.x, y - camera.y, w, h);
+  }
+
+  addCanvas(name, width, height) {
+    let canvas = this.canvases[name];
+
+    if (!canvas) {
+      canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      this.canvases[name] = canvas;
+    }
+
+    return canvas;
+  }
+
+  switchCanvas(name) {
+    const canvas = this.canvases[name];
+
+    if (canvas) {
+      this.canvas = canvas;
+      this.ctx = canvas.getContext('2d');
+    }
+
+    return canvas;
+  }
+
+  focus() {
+    this.canvases.main.focus();
+  }
+
+  renderCanvas(name, fromPos, toPos) {
+    const canvas = this.canvases[name];
+
+    if (canvas) {
+      this.ctx.drawImage(
+          canvas,
+          fromPos.x,
+          fromPos.y,
+          fromPos.width,
+          fromPos.height,
+          toPos.x,
+          toPos.y,
+          toPos.width,
+          toPos.height,
+      );
+    }
   }
 }
 
