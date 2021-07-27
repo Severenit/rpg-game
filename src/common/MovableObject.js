@@ -83,7 +83,7 @@ class MovableObject extends PositionedObject {
         toY: newY,
         deltaX: newX - this.x,
         deltaY: newY - this.y,
-      })
+      });
     }
   }
 }

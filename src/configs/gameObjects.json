@@ -29,6 +29,24 @@
         "sprite": ["terrain", "npcSpawn"],
         "frame": 0
     },
+    "heightGrass": {
+        "name": "heightGrass",
+        "type": "static",
+        "sprite": ["terrain", "heightGrass"],
+        "frame": 0
+    },
+    "earthWithGrass": {
+        "name": "earthWithGrass",
+        "type": "static",
+        "sprite": ["terrain", "earthWithGrass"],
+        "frame": 0
+    },
+    "earth": {
+        "name": "earth",
+        "type": "static",
+        "sprite": ["terrain", "earth"],
+        "frame": 0
+    },
     "boy1": {
         "name": "boy1",
         "type": "animated",
