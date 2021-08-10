@@ -1,6 +1,7 @@
 import EventSourceMixin from '../common/EventSourceMixin';
 import ClientCamera from './ClientCamera';
 import ClientInput from './ClientInput';
+import { clamp } from '../common/util';
 
 class ClientEngine {
   constructor(canvas, game) {
@@ -129,6 +130,42 @@ class ClientEngine {
           toPos.height,
       );
     }
+  }
+
+  renderSign(opt) {
+    const options = Object.assign({
+      color: 'Black',
+      bgColor: '#f4f4f4',
+      font: '16px sans-serif',
+      verticalPadding: 5,
+      horizontalPadding: 3,
+      textAlign: 'center',
+      textBaseline: 'center',
+    }, opt);
+
+    const ctx = this.ctx;
+    const camera = this.camera;
+
+    ctx.textBaseline = options.textBaseline;
+    ctx.textAlign = options.textAlign;
+    ctx.font = options.font;
+
+    const measure = ctx.measureText(options.text);
+    const textHeight = measure.actualBoundingBoxAscent;
+
+    const barWidth = clamp(measure.width + 2 * options.horizontalPadding, options.minWidth, options.maxWidth);
+    const barHeight = textHeight + 2 * options.verticalPadding;
+
+    const barX = options.x - barWidth / 2 - camera.x;
+    const barY = options.y - barHeight / 2 - camera.y;
+
+    const textWidth = clamp(measure.width, 0, barWidth - 2 * options.horizontalPadding);
+
+    ctx.fillStyle = options.bgColor;
+    ctx.fillRect(barX, barY, barWidth, barHeight);
+
+    ctx.fillStyle = options.color;
+    ctx.fillText(options.text, barX + barWidth / 2, barY + barHeight - options.verticalPadding, textWidth);
   }
 }
 
