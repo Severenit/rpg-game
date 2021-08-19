@@ -119,29 +119,32 @@ class ClientEngine {
 
     if (canvas) {
       this.ctx.drawImage(
-          canvas,
-          fromPos.x,
-          fromPos.y,
-          fromPos.width,
-          fromPos.height,
-          toPos.x,
-          toPos.y,
-          toPos.width,
-          toPos.height,
+        canvas,
+        fromPos.x,
+        fromPos.y,
+        fromPos.width,
+        fromPos.height,
+        toPos.x,
+        toPos.y,
+        toPos.width,
+        toPos.height,
       );
     }
   }
 
   renderSign(opt) {
-    const options = Object.assign({
-      color: 'Black',
-      bgColor: '#f4f4f4',
-      font: '16px sans-serif',
-      verticalPadding: 5,
-      horizontalPadding: 3,
-      textAlign: 'center',
-      textBaseline: 'center',
-    }, opt);
+    const options = Object.assign(
+      {
+        color: 'Black',
+        bgColor: '#f4f4f4',
+        font: '16px sans-serif',
+        verticalPadding: 5,
+        horizontalPadding: 3,
+        textAlign: 'center',
+        textBaseline: 'center',
+      },
+      opt,
+    );
 
     const ctx = this.ctx;
     const camera = this.camera;

@@ -1,29 +1,29 @@
 import ClientGameObject from './ClientGameObject';
 
 class ClientPlayer extends ClientGameObject {
-    constructor(cfg) {
-        super(cfg);
+  constructor(cfg) {
+    super(cfg);
 
-        this.playerName = cfg.playerName;
+    this.playerName = cfg.playerName;
 
-        const world = cfg.cell.world;
+    const world = cfg.cell.world;
 
-        world.game.setPlayer(this);
-    }
+    world.game.setPlayer(this);
+  }
 
-    render(time) {
-        super.render(time);
+  render(time) {
+    super.render(time);
 
-        const { world } = this;
+    const { world } = this;
 
-        world.engine.renderSign({
-            x: this.x + world.cellWidth / 2,
-            y: this.y - 15,
-            minWidth: world.cellWidth,
-            maxWidth: world.cellWidth * 1.5,
-            text: this.playerName,
-        });
-    }
+    world.engine.renderSign({
+      x: this.x + world.cellWidth / 2,
+      y: this.y - 15,
+      minWidth: world.cellWidth,
+      maxWidth: world.cellWidth * 1.5,
+      text: this.playerName,
+    });
+  }
 }
 
 export default ClientPlayer;
