@@ -4,7 +4,7 @@ import ClientGame from './client/ClientGame';
 import { getTime } from './common/util';
 
 window.addEventListener('load', () => {
-  const socket = io('https://jsprochat.herokuapp.com');
+  const socket = io('http://localhost:3001');
 
   const $startGame = document.querySelector('.start-game');
   const $nameForm = document.getElementById('nameForm');
