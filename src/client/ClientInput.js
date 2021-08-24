@@ -15,12 +15,14 @@ class ClientInput {
   onKeyDown(e) {
     this.keysPressed.add(e.code);
     this.keyHandlers[e.code] && this.keyHandlers[e.code](true);
+    window.document.body.style.overflow = 'hidden';
     this.trigger('keydown', e);
   }
 
   onKeyUp(e) {
     this.keysPressed.delete(e.code);
     this.keyHandlers[e.code] && this.keyHandlers[e.code](false);
+    window.document.body.style.overflow = 'auto';
     this.trigger('keyup', e);
   }
 
