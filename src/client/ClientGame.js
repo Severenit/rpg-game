@@ -4,8 +4,6 @@ import ClientWorld from './ClientWorld';
 import gameObjects from '../configs/gameObjects.json';
 import ClientApi from './ClientApi';
 
-import _ from 'lodash';
-
 class ClientGame {
     constructor(cfg) {
         Object.assign(this, {
@@ -67,7 +65,7 @@ class ClientGame {
     }
 
     setPlayers(playersList) {
-        _.forOwn(playersList, (player) => this.createPlayer(player));
+        playersList.forEach((player) => this.createPlayer(player));
     }
 
     createCurrentPlayer(playerCfg) {
