@@ -9,7 +9,7 @@ class ClientApi {
     }
 
     connect() {
-        const { url, path } = this;
+        const {url, path} = this;
 
         this.io = io(url, {
             path,
@@ -37,8 +37,8 @@ class ClientApi {
     }
 
     onPlayerMove(moveCfg) {
-        const { game } = this;
-        const { col, row, id } = moveCfg;
+        const {game} = this;
+        const {col, row, id} = moveCfg;
         const player = game.getPlayerById(id);
 
         if (player) {
@@ -47,7 +47,7 @@ class ClientApi {
     }
 
     onPlayerDisconnect(id) {
-        const { game } = this;
+        const {game} = this;
         game.removePlayerById(id);
     }
 
