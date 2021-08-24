@@ -1,16 +1,9 @@
-import { io } from 'socket.io-client';
 import './index.scss';
 import ClientGame from './client/ClientGame';
-import { getTime } from './common/util';
 
 window.addEventListener('load', async () => {
-  // const socket = io('https://jsmarathonpro.herokuapp.com/', {
-  //   path: '/game'
-  // });
   const levelCfg = await fetch('https://jsmarathonpro.herokuapp.com/api/v1/world').then(res => res.json());
   const sprites = await fetch('https://jsmarathonpro.herokuapp.com/api/v1/sprites').then(res => res.json());
-  console.log('####: w', levelCfg);
-  console.log('####: w', sprites);
 
   const $startGame = document.querySelector('.start-game');
   const $nameForm = document.getElementById('nameForm');

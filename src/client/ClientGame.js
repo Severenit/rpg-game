@@ -37,7 +37,6 @@ class ClientGame {
 
     createWorld() {
         return new ClientWorld(this, this.engine, this.cfg.levelCfg);
-        // return new ClientWorld(this, this.engine, levelCfg);
     }
 
     getWorld() {
@@ -48,7 +47,6 @@ class ClientGame {
         this.engine.loadSprites(this.cfg.sprites).then(() => {
             this.map.init();
             this.engine.on('render', (_, time) => {
-                // this.engine.camera.focusAtGameObject(this.player);
                 this.player && this.engine.camera.focusAtGameObject(this.player);
                 this.map.render(time);
             });
