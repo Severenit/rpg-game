@@ -1,11 +1,10 @@
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 import './index.scss';
 import ClientGame from './client/ClientGame';
 import { getTime } from './common/util';
 
 window.addEventListener('load', () => {
-  const socket = io('http://localhost:3001');
-
+  // const socket = io('http://localhost:3001');
   const $startGame = document.querySelector('.start-game');
   const $nameForm = document.getElementById('nameForm');
   const $inputName = document.getElementById('name');
@@ -22,9 +21,13 @@ window.addEventListener('load', () => {
       ClientGame.init({
         tagId: 'game',
         playerName: $inputName.value,
+        apiCfg: {
+          url: 'https://jsmarathonpro.herokuapp.com/',
+          path: '/game',
+        }
       });
 
-      socket.emit('start', $inputName.value);
+      // socket.emit('start', $inputName.value);
 
       $chatWrap.style.display = 'block';
 
@@ -39,26 +42,26 @@ window.addEventListener('load', () => {
     e.preventDefault();
 
     if ($input.value) {
-      socket.emit('chat message', $input.value);
+      // socket.emit('chat message', $input.value);
 
       $input.value = '';
     }
   });
 
-  socket.on('chat online', (data) => {
-    console.log('####: chat online', data);
-  });
-
-  socket.on('chat connection', (data) => {
-    console.log('####: chat connection', data);
-    $message.insertAdjacentHTML('beforeend', `<p><strong>${getTime(data.time)}</strong> ${data.msg}</p>`);
-  });
-
-  socket.on('chat disconnect', (data) => {
-    $message.insertAdjacentHTML('beforeend', `<p><strong>${getTime(data.time)}</strong> ${data.msg}</p>`);
-  });
-
-  socket.on('chat message', (data) => {
-    $message.insertAdjacentHTML('beforeend', `<p><strong>${getTime(data.time)}</strong> - ${data.msg}</p>`);
-  });
+  // socket.on('chat online', (data) => {
+  //   console.log('####: chat online', data);
+  // });
+  //
+  // socket.on('chat connection', (data) => {
+  //   console.log('####: chat connection', data);
+  //   $message.insertAdjacentHTML('beforeend', `<p><strong>${getTime(data.time)}</strong> ${data.msg}</p>`);
+  // });
+  //
+  // socket.on('chat disconnect', (data) => {
+  //   $message.insertAdjacentHTML('beforeend', `<p><strong>${getTime(data.time)}</strong> ${data.msg}</p>`);
+  // });
+  //
+  // socket.on('chat message', (data) => {
+  //   $message.insertAdjacentHTML('beforeend', `<p><strong>${getTime(data.time)}</strong> - ${data.msg}</p>`);
+  // });
 });

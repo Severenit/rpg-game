@@ -4,6 +4,7 @@ import ClientWorld from './ClientWorld';
 import sprites from '../configs/sprites';
 import levelCfg from '../configs/world.json';
 import gameObjects from '../configs/gameObjects.json';
+import ClientApi from './ClientApi';
 
 class ClientGame {
     constructor(cfg) {
@@ -11,7 +12,15 @@ class ClientGame {
             cfg,
             gameObjects,
             player: null,
+            players: {},
+            api: new ClientApi({
+                game: this,
+                ...cfg.apiCfg,
+            }),
+            spawnPoint: [],
         });
+
+        this.api.connect();
 
         this.engine = this.createEngine();
         this.map = this.createWorld();
@@ -38,12 +47,39 @@ class ClientGame {
         this.engine.loadSprites(sprites).then(() => {
             this.map.init();
             this.engine.on('render', (_, time) => {
-                this.engine.camera.focusAtGameObject(this.player);
+                this.player && this.engine.camera.focusAtGameObject(this.player);
                 this.map.render(time);
             });
             this.engine.start();
             this.initKeys();
+            this.engine.focus();
+            this.api.join(this.cfg.playerName);
         });
+    }
+
+    createCurrentPlayer(playerCfg) {
+        console.log('####: playerCfg', playerCfg);
+        const playerObj = this.createPlayer(playerCfg);
+
+        this.setPlayer(playerObj);
+    }
+
+    createPlayer({ id, col, row, layer, skin, name }) {
+        if (!this.players[id]) {
+            const cell = this.map.cellAt(col, row);
+            const playerObj = cell.createGameObject({
+                'class': 'player',
+                type: skin,
+                playerId: id,
+                playerName: name,
+            }, layer);
+
+            cell.addGameObject(playerObj);
+
+            this.players[id] = playerObj;
+        }
+
+        return this.players[id];
     }
 
     initKeys() {
@@ -75,6 +111,10 @@ class ClientGame {
                 player.once('motion-stopped', () => player.setState('main'));
             }
         }
+    }
+
+    addSpawnPoint(spawnPoint) {
+        this.spawnPoint.push(spawnPoint);
     }
 
     static init(cfg) {
