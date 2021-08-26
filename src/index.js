@@ -3,7 +3,10 @@ import './index.scss';
 import ClientGame from './client/ClientGame';
 import { getTime } from './common/util';
 
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
+  const world = await fetch('https://jsmarathonpro.herokuapp.com/api/v1/world').then(res => res.json());
+  const sprites = await fetch('https://jsmarathonpro.herokuapp.com/api/v1/sprites').then(res => res.json());
+  const gameObjects = await fetch('https://jsmarathonpro.herokuapp.com/api/v1/gameObjects').then(res => res.json());
   // const socket = io('http://localhost:3001');
   const $startGame = document.querySelector('.start-game');
   const $nameForm = document.getElementById('nameForm');
@@ -14,6 +17,8 @@ window.addEventListener('load', () => {
   const $input = document.getElementById('input');
   const $message = document.querySelector('.message');
 
+  $startGame.style.display = 'flex';
+
   const submitName = (e) => {
     e.preventDefault();
 
@@ -21,6 +26,9 @@ window.addEventListener('load', () => {
       ClientGame.init({
         tagId: 'game',
         playerName: $inputName.value,
+        world,
+        sprites,
+        gameObjects,
         apiCfg: {
           url: 'https://jsmarathonpro.herokuapp.com/',
           path: '/game',
